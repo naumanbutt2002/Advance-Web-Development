@@ -1,28 +1,52 @@
-const getDataFromApi = async () => {
-  let myEndpoint = "https://newsapi.org/v2/top-headlines?country=us&apiKey=41ef462eca8142a4bbb7eaa25b4ece4c";
-  let myData = await fetch(myEndpoint); /* Must wait for fetching */
-  //console.log("received Data: ", myData);
-  let parsedData = await myData.json(); /* Must wait for myData.json */
-  console.log("parsed received Data: ", parsedData);
+import { useEffect, useState } from "react";
  
-  let dataStatus = parsedData.status;
-  console.log("value of 'status' in data: ", dataStatus);
- 
-  let datatotalResults = parsedData.totalResults;
-  console.log("value of 'data articles' in data: ", datatotalResults);
- 
-  let dataarticles = parsedData.articles;
-  console.log("value of 'articles' in data: ", dataarticles);
-   
-  let dataarticles_3 = parsedData.articles[3];
-  console.log("value of 'articles' at 3rd index: ", dataarticles_3);
-};
- 
+/* File: App.jsx */
 function App() {
-  getDataFromApi();
+  const [dataStatus, setdataStatus] = useState("");
+  const [datatotalResults, setdatatotalResults] = useState("");
+  const [dataArticles, setArticles] = useState([]);
+ 
+  const getDataFromApi = async () => {
+    let myEndpoint =
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=41ef462eca8142a4bbb7eaa25b4ece4c";
+    let myData = await fetch(myEndpoint); /* Must wait for fetching */
+    let parsedData = await myData.json(); /* Must wait for myData.json */
+    console.log("parsed received Data: ", parsedData);
+ 
+    setdataStatus(parsedData.status);
+    setdatatotalResults(parsedData.totalResults);
+    setArticles(parsedData.articles);
+  };
+ 
+  useEffect(() => {
+    getDataFromApi();
+  }, []);
+ 
   return (
     <div>
       <h1>Data from our REST API</h1>
+ 
+      <p>
+        <b>Status:</b> {dataStatus}
+      </p>
+      <p>
+        <b>Total Results:</b> {datatotalResults}
+      </p>
+      <p>
+        <b>Articles:</b>
+      </p>
+      {
+        dataArticles.map((element, uniqueKey = 0) => {
+          uniqueKey = uniqueKey + 1;
+          return (
+            <div key={uniqueKey}>
+              <p>
+                {uniqueKey}. {element.title}
+              </p>
+            </div>
+          );
+        })
+      }
     </div>
   );
 }
