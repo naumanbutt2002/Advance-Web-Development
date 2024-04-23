@@ -94,7 +94,41 @@
 // export default App;
 
 //Example Code 5: Use states in previous example to show value of “status” on web’s interface.
-import { useState } from "react";
+
+
+// import { useState } from "react";
+ 
+ 
+// function App() {
+//   const [dataStatus, setdataStatus] = useState("");
+ 
+//   const getDataFromApi = async () => {
+//     let myEndpoint =
+//       "https://newsapi.org/v2/top-headlines?country=us&apiKey=dd4cf4a5a1e64635a4d62c631362bdf4";
+//     let myData = await fetch(myEndpoint); /* Must wait for fetching */
+//     let parsedData = await myData.json(); /* Must wait for myData.json */
+//     console.log("parsed received Data: ", parsedData);
+ 
+//     setdataStatus(parsedData.status);
+//   };
+ 
+//   getDataFromApi();
+ 
+//   return (
+//     <div>
+//       <h1>Data from our REST API</h1>
+ 
+//       <h2>Status: </h2>
+//       <p>{dataStatus}</p>
+//     </div>
+//   );
+// }
+ 
+// export default App;
+
+//Example Code 6: Stop rendering the components multiple times.
+
+import { useEffect, useState } from "react";
  
  
 function App() {
@@ -110,14 +144,17 @@ function App() {
     setdataStatus(parsedData.status);
   };
  
-  getDataFromApi();
+  useEffect(() => {
+    getDataFromApi();
+  }, []);
  
   return (
     <div>
       <h1>Data from our REST API</h1>
  
-      <h2>Status: </h2>
-      <p>{dataStatus}</p>
+      <p>
+        <b>Status:</b> {dataStatus}
+      </p>
     </div>
   );
 }
