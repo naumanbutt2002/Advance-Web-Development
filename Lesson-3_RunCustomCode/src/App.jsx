@@ -26,8 +26,19 @@
 
 //Method 2: Use external CSS.
 
+// export default function App() {
+//   return (
+//     <h1 className='App'>Muhammad Nauman</h1>
+//   );
+// }
+
+//Example Code 5: Displaying an introduction about author below his name. Introduction will also be shown at middle.
+
 export default function App() {
   return (
-    <h1 className='App'>Muhammad Nauman</h1>
+    <div>
+      <h1 className='App'>Muhammad Nauman</h1>
+      <p className="App">Introduction about author</p>
+    </div>
   );
 }
