@@ -251,8 +251,64 @@
 
 //Example Code 9: Display articles on web interface using map( ) function.
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
  
+ 
+// function App() {
+//   const [dataStatus, setdataStatus] = useState("");
+//   const [datatotalResults, setdatatotalResults] = useState("");
+//   const [dataArticles, setArticles] = useState([]);
+ 
+//   const getDataFromApi = async () => {
+//     let myEndpoint =
+//       "https://newsapi.org/v2/top-headlines?country=us&apiKey=dd4cf4a5a1e64635a4d62c631362bdf4";
+//     let myData = await fetch(myEndpoint); /* Must wait for fetching */
+//     let parsedData = await myData.json(); /* Must wait for myData.json */
+//     console.log("parsed received Data: ", parsedData);
+ 
+//     setdataStatus(parsedData.status);
+//     setdatatotalResults(parsedData.totalResults);
+//     setArticles(parsedData.articles);
+//   };
+ 
+//   useEffect(() => {
+//     getDataFromApi();
+//   }, []);
+ 
+//   return (
+//     <div>
+//       <h1>Data from our REST API</h1>
+ 
+//       <p>
+//         <b>Status:</b> {dataStatus}
+//       </p>
+//       <p>
+//         <b>Total Results:</b> {datatotalResults}
+//       </p>
+//       <p>
+//         <b>Articles:</b>
+//       </p>
+//       {
+//         dataArticles.map((element, uniqueKey = 0) => {
+//           uniqueKey = uniqueKey + 1;
+//           return (
+//             <div key={uniqueKey}>
+//               <p>
+//                 {uniqueKey}. {element.title}
+//               </p>
+//             </div>
+//           );
+//         })
+//       }
+//     </div>
+//   );
+// }
+ 
+// export default App;
+
+//Example Code 10: Displaying news with their image, title, author and published-date. No data for some fields.
+
+import { useEffect, useState } from "react";
  
 function App() {
   const [dataStatus, setdataStatus] = useState("");
@@ -261,7 +317,7 @@ function App() {
  
   const getDataFromApi = async () => {
     let myEndpoint =
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=dd4cf4a5a1e64635a4d62c631362bdf4";
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=41ef462eca8142a4bbb7eaa25b4ece4c";
     let myData = await fetch(myEndpoint); /* Must wait for fetching */
     let parsedData = await myData.json(); /* Must wait for myData.json */
     console.log("parsed received Data: ", parsedData);
@@ -288,18 +344,17 @@ function App() {
       <p>
         <b>Articles:</b>
       </p>
-      {
-        dataArticles.map((element, uniqueKey = 0) => {
-          uniqueKey = uniqueKey + 1;
-          return (
-            <div key={uniqueKey}>
-              <p>
-                {uniqueKey}. {element.title}
-              </p>
-            </div>
-          );
-        })
-      }
+      {dataArticles.map((element, uniqueKey = 0) => {
+        uniqueKey = uniqueKey + 1;
+        return (
+          <div key={uniqueKey}>
+            <img src={element.urlToImage} alt="Image for News" />
+            <p>{element.title}</p>
+            <p className="text-red-600">Author: {element.author}</p>
+            <p>{element.publishedAt}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
