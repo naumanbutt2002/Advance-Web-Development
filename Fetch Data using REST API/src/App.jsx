@@ -164,12 +164,55 @@
 
 //Example Code 7: Also show value of totalResults in addition to previous example.
 
+// import { useEffect, useState } from "react";
+ 
+ 
+// function App() {
+//   const [dataStatus, setdataStatus] = useState("");
+//   const [datatotalResults, setdatatotalResults] = useState("");
+ 
+//   const getDataFromApi = async () => {
+//     let myEndpoint =
+//       "https://newsapi.org/v2/top-headlines?country=us&apiKey=dd4cf4a5a1e64635a4d62c631362bdf4";
+//     let myData = await fetch(myEndpoint); /* Must wait for fetching */
+//     let parsedData = await myData.json(); /* Must wait for myData.json */
+//     console.log("parsed received Data: ", parsedData);
+ 
+//     setdataStatus(parsedData.status);
+//     setdatatotalResults(parsedData.totalResults);
+//   };
+ 
+//   useEffect(() => {
+//     getDataFromApi();
+//   }, []);
+ 
+//   return (
+//     <div>
+//       <h1>Data from our REST API</h1>
+ 
+//       <p>
+//         <b>Status:</b> {dataStatus}
+//       </p>
+//       <p>
+//         <b>Total Results:</b> {datatotalResults}
+//       </p>
+//     </div>
+//   );
+// }
+ 
+// export default App;
+
+
+
+//Example Code 8: Display articles on web interface just like above simple data.
+
 import { useEffect, useState } from "react";
  
  
 function App() {
   const [dataStatus, setdataStatus] = useState("");
   const [datatotalResults, setdatatotalResults] = useState("");
+  const [dataArticles, setArticles] = useState([]);
  
   const getDataFromApi = async () => {
     let myEndpoint =
@@ -180,6 +223,7 @@ function App() {
  
     setdataStatus(parsedData.status);
     setdatatotalResults(parsedData.totalResults);
+    setArticles(parsedData.articles);
   };
  
   useEffect(() => {
@@ -195,6 +239,9 @@ function App() {
       </p>
       <p>
         <b>Total Results:</b> {datatotalResults}
+      </p>
+      <p>
+        <b>Articles:</b> {dataArticles}
       </p>
     </div>
   );
