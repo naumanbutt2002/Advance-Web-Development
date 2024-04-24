@@ -67,13 +67,35 @@
 
 // First line in both files are commented. Note the method of commenting, that is different in both files.
 
-import './App.css';
+// import './App.css';
+
+// export default function App() {
+//   return (
+//     <div>
+//       <h1>Muhammad Nauman</h1>
+//       <p>Introduction about author</p>
+//     </div>
+//   );
+// }
+
+
+// Example Code 8: Displaying image.
+
+// Some lines are commented.
+// Online inline styles are used here so that property is fixed to a specific image. If you have multiple image and you want to display in same size, then you shall specify property in your style sheet.
+// It is noted that there is a portion of line that is commented. In this way, you can also comment any HTML part in react environment.
+// Line 1 is also commented. In this way, you can comment any non-HTML content in react environment. To comment multiple lines, you can use /* and */ at starting and ending of lines, respectively.
+
+
 
 export default function App() {
   return (
     <div>
-      <h1>Muhammad Nauman</h1>
-      <p>Introduction about author</p>
+        <div> {/*outer-container*/}
+          <div style={{width:'200px', height:'150px', border:"1px solid black"}}> {/*image-container*/}
+            <img src="/public/data.jpg" alt="naumanbutt2023" style={{maxWidth:"100%", height:"auto"}} />
+          </div>
+        </div>
     </div>
   );
 }
