@@ -25,6 +25,7 @@
 // }
 
 //Method 2: Use external CSS.
+//  import './App.css';
 
 // export default function App() {
 //   return (
@@ -36,10 +37,10 @@
 
 // export default function App() {
 //   return (
-//     <div>
+//     <>
 //       <h1 className='App'>Muhammad Nauman</h1>
 //       <p className="App">Introduction about author</p>
-//     </div>
+//     </>
 //   );
 // }
 
@@ -93,7 +94,7 @@ export default function App() {
     <div>
         <div> {/*outer-container*/}
           <div style={{width:'200px', height:'150px', border:"1px solid black"}}> {/*image-container*/}
-            <img src="/public/data.jpg" alt="naumanbutt2023" style={{maxWidth:"100%", height:"auto"}} />
+            <img src="data.jpg" alt="naumanbutt2023" style={{maxWidth:"100%", height:"auto"}} />
           </div>
         </div>
     </div>

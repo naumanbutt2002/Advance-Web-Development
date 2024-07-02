@@ -1,7 +1,17 @@
-export default function App() {
+import Header from './components/Header.jsx';
+import Navigation from './components/Navigation.jsx';
+import Footer from './components/Footer.jsx';
+import Content from './components/Content.jsx';
+
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <>
+      <Header/>
+      <Navigation/>
+      <Content/>
+      <Footer/>
+    </>
+  );
 }
+ 
+export default App;
