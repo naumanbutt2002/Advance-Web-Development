@@ -29,15 +29,25 @@
 
 //Example 3: Create multiple endpoints just as in previous example but code for each endpoint should be separate file.
 
+// const express = require('express')
+// const app = express()
+// const port = 5000
+ 
+// app.get('/', (req, res) => {
+//     res.send('Main page')
+// })
+// app.use('/web', require('./myFiles/course'))
+// app.use('/web/exercise', require("./myFiles/exercise"))
+// app.use('/web/exercise/result', require("./myFiles/result"))
+ 
+// app.listen(port)
+
+//Example 4: Send JSON object as response of an endpoint. Show the object on browser console window. In previous examples, we just sent string response for each endpoint.
 const express = require('express')
 const app = express()
 const port = 5000
  
-app.get('/', (req, res) => {
-    res.send('Main page')
-})
-app.use('/web', require('./myFiles/course'))
-app.use('/web/exercise', require("./myFiles/exercise"))
-app.use('/web/exercise/result', require("./myFiles/result"))
+app.get('/', require("./myFiles/main"))
+app.use('/web', require("./myFiles/course"))
  
 app.listen(port)
