@@ -1,8 +1,8 @@
 const myExpress = require('express')
 const myRouter = myExpress.Router()
 const myUser = require('../myschema/UserSchema') //one folder back from "this" file
- 
 const { body, validationResult } = require("express-validator")
+const myBcrypt = require("bcrypt")
  
 //sub-route is /register-user/
 myRouter.post('/', [
@@ -33,8 +33,13 @@ myRouter.post('/', [
  
             let myname = req.body.name
             let myfname = req.body.fname
-            let mypassword = req.body.password
             let mystatus = req.body.status
+ 
+            let mypassword = req.body.password
+            //encryption using salt of bcrypt
+            const mySalt = await myBcrypt.genSalt(10) //Salt value for 10 characters
+            let securePassword = await myBcrypt.hash(mypassword, mySalt)
+            mypassword = securePassword
  
             let savingData = {
                 email: myemail,
