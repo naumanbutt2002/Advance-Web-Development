@@ -8,8 +8,7 @@ myRouter.get('/all-user/', async (req, res) => {
     
     try {
         let searchedData={
-            email: "abobakar@gmail.com",
-            status:"Teacher"
+            status:"Teacher",
         }
         const getUser = await myUser.find(searchedData)
         mySuccess = true
