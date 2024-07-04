@@ -1,5 +1,3 @@
-//File: update-user.js in ROOT-FOLDER/myFiles/ folder
- 
 const myExpress = require('express')
  
 const myRouter = myExpress.Router()
@@ -11,15 +9,18 @@ myRouter.put('/:reqID4Update',
         let mySuccess = false
  
         //get id from endpoint
-        let idUpdating = req.params.reqID4Update
+        let dataUpdating = req.params.reqID4Update
  
         //first checking; either the ID exist or not
         //getting the data that is being updated. Data's ID will be in URL/API
-        const getUser = await myUser.findById(idUpdating)
+        let searchingData = {
+            status: dataUpdating
+        }
+        const getData = await myUser.find(searchingData)
  
         //sending response if there is no data in the database against requested-ID
-        if (!getUser) {
-            return res.status(404).send({ success: mySuccess, message: "No data exist having the ID" })
+        if (!getData) {
+            return res.status(404).send({ success: mySuccess, message: "No data exist having given value in endpoint" })
         }
  
         //getting requrested-content from req-body
@@ -32,14 +33,19 @@ myRouter.put('/:reqID4Update',
         if (newfName) { newData.fname = newfName }//create "fname" field if data for newfName exists
  
         try {
-            //below code will be executed only if there is no issue in above checks
-            //updating the data in database
-            const updatedData = await myUser.findByIdAndUpdate(idUpdating, { $set: newData }, { new: true })
+            console.log("IDs Count: ", getData.length)
+            // Extracting _id values
+            const ids = getData.map(element => element._id.toString());
  
+            for (let index = 0; index < ids.length; index++) {
+                const element = ids[index];
+                const updatedData = await myUser.findByIdAndUpdate(element, { $set: newData }, { new: true })
+            }
             mySuccess = true
- 
-            //just display the updated note
-            res.json({ updatedData: updatedData, success: mySuccess })
+            let sendResponseData = {
+                message: "All IDs has been updated", success: mySuccess
+            }
+            res.json(sendResponseData)
         }
         catch (e) {
             res.status(400).send({ success: mySuccess, message: "Internal Server Error" })
