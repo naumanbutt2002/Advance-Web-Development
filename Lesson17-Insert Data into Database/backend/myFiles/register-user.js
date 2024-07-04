@@ -21,6 +21,16 @@ myRouter.post('/', [
         try {
             let myemail = req.body.email
             //console.log("myemail: ", myemail)
+ 
+            //lets check already registered email
+            //if email is already registered, then
+            //skip to save other data
+            let existUser = await myUser.findOne({ email: req.body.email })
+            if (existUser) {
+                //sending bad request (code: 400) with some JSON
+                return res.status(400).json({ success: mySuccess, errorExistAsBelow: "Sorry, this email already exists" })
+            }
+ 
             let myname = req.body.name
             let myfname = req.body.fname
             let mypassword = req.body.password
@@ -33,11 +43,12 @@ myRouter.post('/', [
                 password: mypassword,
                 status: mystatus
             }
+ 
+            //using promises
+            let myNewUSer = await myUser.create(savingData)
+ 
             //let myData = myUser(savingData)
             //myData.save()
- 
-            //using Promises
-            let myNewUser = await myUser.create(savingData)
  
             mySuccess = true
  
@@ -46,7 +57,7 @@ myRouter.post('/', [
                 message: "Data has been inserted successfully",
                 insertedData: savingData,
                 success: mySuccess,
-                newUserFromData: myNewUser
+                newUserFromData: myNewUSer
             }
             res.json(resData)
         } catch (myError) {
