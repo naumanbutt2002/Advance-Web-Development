@@ -1,3 +1,4 @@
+
 const myExpress = require('express')
  
 const myRouter = myExpress.Router()
@@ -7,21 +8,29 @@ const myUser = require('../myschema/UserSchema') //one folder back from "this" f
 myRouter.delete('/:reqID4Delete',
     async (req, res) => {
         let mySuccess = false
+ 
         let delID = req.params.reqID4Delete
         try {
             //getting the data that is being deleted. Data's ID will be in URL/API
-            const getUser = await myUser.findById(delID)
+            let searchingData = {
+                email: delID
+            }
+            const getUser = await myUser.find(searchingData)
  
             //sending response if there is no data in the database against requested-ID
-            if (!getUser) {
+            if (getUser.length == 0) {
                 return res.status(404).send({ success: mySuccess, message: "No User Found for this ID" })
             }
-            const deletedUser = await myUser.findByIdAndDelete(delID)
+            console.log("IDs Count: ", getUser.length)
+            // Extracting _id values
+            const ids = getUser.map(element => element._id.toString());
  
-            //displaying success message and deleted-data
-            mySuccess = true
+            for (let index = 0; index < ids.length; index++) {
+                const element = ids[index];
+                const deletedUser = await myUser.findByIdAndDelete(element)
+            }
             let sendResponseData = {
-                deletedData: deletedUser, success: mySuccess
+                message: "All IDs has been deleted", success: mySuccess
             }
             res.json(sendResponseData)
         }
