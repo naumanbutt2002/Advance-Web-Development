@@ -5,8 +5,13 @@ const myUser = require('../schema/UserSchema') //one folder back from "this" fil
 //sub-route is /all-user/
 myRouter.get('/all-user/', async (req, res) => {
     mySuccess = false
+    
     try {
-        const getUser = await myUser.find()
+        let searchedData={
+            email: "abobakar@gmail.com",
+            status:"Teacher"
+        }
+        const getUser = await myUser.find(searchedData)
         mySuccess = true
         res.json({ getData: getUser, success: mySuccess })
     } catch (e) { //parameter is compulsory for usage of catch()
